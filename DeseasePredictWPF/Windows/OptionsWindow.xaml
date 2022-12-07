@@ -1,0 +1,568 @@
+﻿<Window x:Class="DeseasePredictWPF.Windows.OptionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DeseasePredictWPF.Windows"
+        mc:Ignorable="d"
+        Height="600"
+        Width="600"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        Title="Настройки" 
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <HorizontalAlignment x:Key="SettingsTextBlockHA">Right</HorizontalAlignment>
+    </Window.Resources>
+    <Grid x:Name="settingsGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="70"/>
+        </Grid.RowDefinitions>
+        <TabControl
+            Grid.Row="0"
+            Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
+            materialDesign:ColorZoneAssist.Mode="PrimaryMid"
+            TabStripPlacement="Top"
+            Background="White"
+            HorizontalContentAlignment="Center"
+            materialDesign:NavigationRailAssist.SelectionCornerRadius="10 10 10 10"
+            materialDesign:NavigationRailAssist.ShowSelectionBackground="True">
+
+            <!--Топология-->
+            <TabItem Width="200">
+                <TabItem.Header>
+                    <StackPanel>
+                        <materialDesign:PackIcon
+                            Kind="SetSquare"
+                            Width="24"
+                            Height="24"
+                            HorizontalAlignment="Center"/>
+                        <TextBlock
+                            Text="Топология"
+                            HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid
+                    Margin="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock 
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="{StaticResource ResourceKey=SettingsTextBlockHA}"
+                        Text="Топология:"
+                        Margin="0 0 10 0"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Foreground="Black">                       
+                    </TextBlock>
+                    <TextBlock 
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="{StaticResource ResourceKey=SettingsTextBlockHA}"
+                        Text="Окрестность:"
+                        Margin="0 0 10 0"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Foreground="Black">
+                    </TextBlock>
+                    
+                    <TextBlock                        
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="{StaticResource ResourceKey=SettingsTextBlockHA}"
+                        Text="Общее кол-во исследуемых людей:"
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Foreground="Black">
+                    </TextBlock>
+                    <TextBlock
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="{StaticResource ResourceKey=SettingsTextBlockHA}"
+                        Text="Размерность решётки клеточного автомата:"
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Foreground="Black">
+                    </TextBlock>
+                    <TextBlock                        
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="{StaticResource ResourceKey=SettingsTextBlockHA}"
+                        Text="Кол-во &quot;нулевых пациентов&quot;:"
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        Foreground="Black">
+                    </TextBlock>
+                    <TextBlock                        
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="{StaticResource ResourceKey=SettingsTextBlockHA}"
+                        Text="Кол-во людей с врождённым иммунитетом:"
+                        Grid.Row="7"
+                        Grid.Column="0"
+                        Foreground="Black">
+                    </TextBlock>
+                    <ComboBox 
+                        Foreground="Black"
+                        Width="200"
+                        Grid.Row="0" 
+                        Grid.Column="1" 
+                        ItemsSource="{Binding Topologies}" 
+                        DisplayMemberPath="DisplayName" 
+                        SelectedItem="{Binding SelectedTopology, Mode=TwoWay}" 
+                        materialDesign:ThemeAssist.Theme="Light">                        
+                    </ComboBox>
+                    <ComboBox 
+                        Foreground="Black"
+                        Width="200"
+                        Grid.Row="1" 
+                        Grid.Column="1" 
+                        ItemsSource="{Binding Neighborhoods}" 
+                        DisplayMemberPath="DisplayName" 
+                        SelectedItem="{Binding SelectedNeighborhood, Mode=TwoWay}" 
+                        materialDesign:ThemeAssist.Theme="Light">
+                    </ComboBox>
+                    <CheckBox
+                
+                        materialDesign:ThemeAssist.Theme="Light"
+                        Foreground="Black"
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        FontSize="15"
+                        IsEnabled="{Binding Path = EnableNeedToIsolation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IsChecked="{Binding Path = NeedToIsolation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Content="Замкнутость"/>
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal"
+                        Grid.Row="3"
+                        Grid.ColumnSpan="2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <CheckBox                
+                                Margin="10 0 10 0"
+                                materialDesign:ThemeAssist.Theme="Light"
+                                Foreground="Black"
+                                Grid.Column="0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                FontSize="15"
+                                IsEnabled="{Binding Path = EnableLeftRightIsolation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsChecked="{Binding Path = LeftRightIsolation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Content="Слева-направо"/>
+                            <CheckBox     
+                                Margin="10 0 10 0"
+                                materialDesign:ThemeAssist.Theme="Light"
+                                Foreground="Black"
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                FontSize="15"
+                                IsEnabled="{Binding Path = EnableUpDownIsolation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsChecked="{Binding Path = UpDownIsolation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Content="Снизу-вверх"/>
+                            <CheckBox   
+                                Margin="10 0 10 0"
+                                materialDesign:ThemeAssist.Theme="Light"
+                                Foreground="Black"
+                                Grid.Column="2"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                FontSize="15"
+                                IsEnabled="{Binding Path = EnableForwardBackIsolation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                IsChecked="{Binding Path = ForwardBackIsolation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Content="Вперёд-назад"/>
+                        </Grid>                        
+                    </StackPanel>
+                    <Border 
+                        Grid.Column="1" 
+                        Grid.Row="4" 
+                        Margin="10" 
+                        BorderBrush="Gray" 
+                        BorderThickness="1">
+                        <TextBox
+                            x:Name="nTB"    
+                            TabIndex="0" 
+                            HorizontalAlignment="Stretch"
+                            Foreground="Black"
+                            Background="White"
+                            Text="{Binding Path = N, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Cursor="Arrow" TextChanged="textbox_TextChanged"/>
+                    </Border>                    
+                    <TextBlock 
+                        Grid.Column="1" 
+                        Grid.Row="5" 
+                        Text="{Binding Path = StringSizes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                        Foreground="Black" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"/>                   
+                    <Border 
+                        Grid.Column="1" 
+                        Grid.Row="6" 
+                        Margin="10" 
+                        BorderBrush="Gray" 
+                        BorderThickness="1">
+                        <TextBox
+                            x:Name="P1TB"    
+                            TabIndex="0" 
+                            HorizontalAlignment="Stretch"
+                            Foreground="Black"
+                            Background="White"
+                            Text="{Binding Path = P1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Cursor="Arrow" TextChanged="textbox_TextChanged"/>
+                    </Border>
+                    <Border 
+                        Grid.Column="1" 
+                        Grid.Row="7" 
+                        Margin="10" 
+                        BorderBrush="Gray" 
+                        BorderThickness="1">
+                        <TextBox
+                            x:Name="H2TB"    
+                            TabIndex="0" 
+                            HorizontalAlignment="Stretch"
+                            Foreground="Black"
+                            Background="White"
+                            Text="{Binding Path = H2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Cursor="Arrow" TextChanged="textbox_TextChanged"/>
+                    </Border> 
+                </Grid>
+            </TabItem>
+            <!--Время болезни-->
+            <TabItem Width="200">
+                <TabItem.Header>
+                    <StackPanel>
+                        <materialDesign:PackIcon
+                            Kind="ClockTimeFiveOutline"
+                            Width="24"
+                            Height="24"
+                            HorizontalAlignment="Center"/>
+                        <TextBlock
+                            Text="Время болезни"
+                            HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid
+                Margin="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>                    
+                    <TextBlock                        
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="{StaticResource ResourceKey=SettingsTextBlockHA}"
+                        Text="Среднее время, в течении которого у человека есть иммунитет после болезни или вакцинации (дней):"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Foreground="Black">
+                    </TextBlock>
+                    <TextBlock                        
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="{StaticResource ResourceKey=SettingsTextBlockHA}"
+                        Text="Среднее время инкубационного периода (дней):"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Foreground="Black">
+                    </TextBlock>
+                    <TextBlock                        
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="{StaticResource ResourceKey=SettingsTextBlockHA}"
+                        Text="Среднее время острой фазы болезни (дней):"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Foreground="Black">
+                    </TextBlock>   
+                    <Border 
+                        Grid.Column="1" 
+                        Grid.Row="0" 
+                        Margin="10" 
+                        BorderBrush="Gray" 
+                        BorderThickness="1">
+                        <TextBox
+                            x:Name="Th3TB"    
+                            TabIndex="0" 
+                            HorizontalAlignment="Stretch"
+                            Foreground="Black"
+                            Background="White"
+                            Text="{Binding Path = Th3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Cursor="Arrow" TextChanged="textbox_TextChanged"/>
+                    </Border>
+                    <Border 
+                        Grid.Column="1" 
+                        Grid.Row="1" 
+                        Margin="10" 
+                        BorderBrush="Gray" 
+                        BorderThickness="1">
+                        <TextBox
+                            x:Name="Tp1TB"    
+                            TabIndex="0" 
+                            HorizontalAlignment="Stretch"
+                            Foreground="Black"
+                            Background="White"
+                            Text="{Binding Path = Tp1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Cursor="Arrow" TextChanged="textbox_TextChanged"/>
+                    </Border>
+                    <Border 
+                        Grid.Column="1" 
+                        Grid.Row="2" 
+                        Margin="10" 
+                        BorderBrush="Gray" 
+                        BorderThickness="1">
+                        <TextBox
+                            x:Name="Tp2TB"    
+                            TabIndex="0" 
+                            HorizontalAlignment="Stretch"
+                            Foreground="Black"
+                            Background="White"
+                            Text="{Binding Path = Tp2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Cursor="Arrow" TextChanged="textbox_TextChanged"/>
+                    </Border> 
+                </Grid>
+            </TabItem>
+            <!--Вероятности заболевания-->
+            <TabItem Width="200">
+                <TabItem.Header>
+                    <StackPanel>
+                        <materialDesign:PackIcon
+                            Kind="Settings"
+                            Width="24"
+                            Height="24"
+                            HorizontalAlignment="Center"/>
+                        <TextBlock
+                            Text="Вероятности заболевания"
+                            HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid
+                Margin="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock                        
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="{StaticResource ResourceKey=SettingsTextBlockHA}"
+                        Text="Вероятность вакцинации здорового человека:"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Foreground="Black">
+                    </TextBlock>
+                    <TextBlock                        
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="{StaticResource ResourceKey=SettingsTextBlockHA}"
+                        Text="Вероятность передачи болезни здоровому человеку от больного во время инкубационного периода:"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Foreground="Black">
+                    </TextBlock>
+                    <TextBlock                        
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="{StaticResource ResourceKey=SettingsTextBlockHA}"
+                        Text="Вероятность передачи болезни здоровому человеку от больного во время острой фазы болезни:"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Foreground="Black">
+                    </TextBlock>
+                    <TextBlock                        
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="{StaticResource ResourceKey=SettingsTextBlockHA}"
+                        Text="Вероятность наступления острой фазы болезни после инкубационного периода:"
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Foreground="Black">
+                    </TextBlock>
+                    <TextBlock                        
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="{StaticResource ResourceKey=SettingsTextBlockHA}"
+                        Text="Вероятность переболеть без острой фазы (безсимптомно):"
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Foreground="Black">
+                    </TextBlock>
+                    <TextBlock                        
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="{StaticResource ResourceKey=SettingsTextBlockHA}"
+                        Text="Вероятность выздоровления после острой фазы:"
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Foreground="Black">
+                    </TextBlock>
+                    <TextBlock                        
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="{StaticResource ResourceKey=SettingsTextBlockHA}"
+                        Text="Вероятность летального исхода после острой фазы:"
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        Foreground="Black">
+                    </TextBlock>
+                    <Border 
+                        Grid.Column="1" 
+                        Grid.Row="0" 
+                        Margin="10" 
+                        BorderBrush="Gray" 
+                        BorderThickness="1">
+                        <TextBox
+                            x:Name="dzetaTB"    
+                            TabIndex="0" 
+                            HorizontalAlignment="Stretch"
+                            Foreground="Black"
+                            Background="White"
+                            Text="{Binding Path = Dzeta, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=N4}" Cursor="Arrow" TextChanged="textboxDouble_TextChanged"/>
+                    </Border>
+                    <Border 
+                        Grid.Column="1" 
+                        Grid.Row="1" 
+                        Margin="10" 
+                        BorderBrush="Gray" 
+                        BorderThickness="1">
+                        <TextBox
+                            x:Name="phiTB"    
+                            TabIndex="0" 
+                            HorizontalAlignment="Stretch"
+                            Foreground="Black"
+                            Background="White"
+                            Text="{Binding Path = Phi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=N4}" Cursor="Arrow" TextChanged="textboxDouble_TextChanged"/>
+                    </Border>
+                    <Border 
+                        Grid.Column="1" 
+                        Grid.Row="2" 
+                        Margin="10" 
+                        BorderBrush="Gray" 
+                        BorderThickness="1">
+                        <TextBox
+                            x:Name="omegaTB"    
+                            TabIndex="0" 
+                            HorizontalAlignment="Stretch"
+                            Foreground="Black"
+                            Background="White"
+                            Text="{Binding Path = Omega, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=N4}" Cursor="Arrow" TextChanged="textboxDouble_TextChanged"/>
+                    </Border>
+                    <Border 
+                        Grid.Column="1" 
+                        Grid.Row="3" 
+                        Margin="10" 
+                        BorderBrush="Gray" 
+                        BorderThickness="1">
+                        <TextBox
+                            x:Name="betaTB"    
+                            TabIndex="0" 
+                            HorizontalAlignment="Stretch"
+                            Foreground="Black"
+                            Background="White"
+                            Text="{Binding Path = Beta, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=N4}" Cursor="Arrow" TextChanged="textboxDouble_TextChanged"/>
+                    </Border>
+                    <Border 
+                        Grid.Column="1" 
+                        Grid.Row="4" 
+                        Margin="10" 
+                        BorderBrush="Gray" 
+                        BorderThickness="1">
+                        <TextBox
+                            x:Name="gammaTB"    
+                            TabIndex="0" 
+                            HorizontalAlignment="Stretch"
+                            Foreground="Black"
+                            Background="White"
+                            Text="{Binding Path = Gamma, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=N4}" Cursor="Arrow" TextChanged="textboxDouble_TextChanged"/>
+                    </Border>
+                    <Border 
+                        Grid.Column="1" 
+                        Grid.Row="5" 
+                        Margin="10" 
+                        BorderBrush="Gray" 
+                        BorderThickness="1">
+                        <TextBox
+                            x:Name="deltaTB"    
+                            TabIndex="0" 
+                            HorizontalAlignment="Stretch"
+                            Foreground="Black"
+                            Background="White"
+                            Text="{Binding Path = Delta, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=N4}" Cursor="Arrow" TextChanged="textboxDouble_TextChanged"/>
+                    </Border>
+                    <Border 
+                        Grid.Column="1" 
+                        Grid.Row="6" 
+                        Margin="10" 
+                        BorderBrush="Gray" 
+                        BorderThickness="1">
+                        <TextBox
+                            x:Name="epsilonTB"    
+                            TabIndex="0" 
+                            HorizontalAlignment="Stretch"
+                            Foreground="Black"
+                            Background="White"
+                            Text="{Binding Path = Epsilon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=N4}" Cursor="Arrow" TextChanged="textboxDouble_TextChanged"/>
+                    </Border>                    
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Border
+            CornerRadius="15"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Center"
+            materialDesign:ThemeAssist.Theme="Light"
+            Width="auto"
+            Height="55"
+            Panel.ZIndex="1"
+            Background="PowderBlue">
+            <Menu   
+                HorizontalAlignment="Center"
+                Width="auto"
+                IsMainMenu="True">
+                <MenuItem
+                    Header="Экспорт/импорт значений">
+                    <MenuItem                                    
+                        Header="Сохранить значения параметров файл"
+                        Command="{Binding Path = SaveParamsCommand}"
+                        Icon="{materialDesign:PackIcon Kind=ContentSave}">
+                    </MenuItem>
+                    <MenuItem
+                        Header="Загрузить значения параметров из файла"
+                        Command="{Binding Path = OpenParamsCommand}"
+                        Icon="{materialDesign:PackIcon Kind=GiftOpenOutline}">
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+        </Border>
+    </Grid>
+</Window>

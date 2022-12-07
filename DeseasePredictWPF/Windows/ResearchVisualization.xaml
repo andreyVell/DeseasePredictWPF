@@ -1,0 +1,14 @@
+﻿<Window x:Class="DeseasePredictWPF.Windows.ResearchVisualization"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DeseasePredictWPF.Windows"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="ResearchVisualization" Height="700" Width="700">
+    <Grid>
+        <Image Height="600" Width="600" x:Name="AutomatImage" Stretch="Fill"/>
+        <TextBlock x:Name="curDayTB" Text="День" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="25"/>
+    </Grid>
+</Window>
